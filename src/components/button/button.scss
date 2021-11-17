@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,700&family=Quattrocento:wght@400;700&display=swap");
+$font: "Quattrocento", serif;
+$poppins: "Poppins", sans-serif;
+$light: #fff;
+$dark: #000;
+
+.button {
+  color: #fff;
+  cursor: pointer;
+  font-family: $poppins;
+  font-size: 1em;
+  font-weight: 500;
+  background: #000;
+  border: none;
+  width: 175px;
+  height: 40px;
+  border-radius: 90px;
+  &:hover {
+    opacity: 0.9;
+    transition: opacity 0.5s;
+  }
+  &.white {
+    background: #fff;
+    color: #000;
+  }
+  &.stroke {
+    background: none;
+    border: solid 2px #fff;
+    &:hover {
+      background-color: $light;
+      color: $dark;
+      transition: background-color color 0.5s;
+    }
+  }
+}
