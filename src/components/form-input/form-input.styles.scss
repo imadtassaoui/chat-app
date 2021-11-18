@@ -1,0 +1,17 @@
+.Form {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FormInput {
+  width: 30vw;
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 20px;
+}
+.FormInput::placeholder {
+  font-size: 20px;
+  color: black;
+  opacity: 1;
+}
