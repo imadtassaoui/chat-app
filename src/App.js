@@ -13,6 +13,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Homepage />
         <Signin />
       </div>
     );
