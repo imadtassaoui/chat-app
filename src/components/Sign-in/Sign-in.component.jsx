@@ -1,6 +1,10 @@
-import FormInput from "../form-input/form-input.component";
+// import FormInput from "../form-input/form-input.component";
 import React, { Component } from "react";
 import { signInWithGoogle } from "../../firebase/firebase.util";
+import Button from "../button/button";
+import "./Sign-in.styles.scss";
+import { ReactComponent as Logoo } from "./google.svg";
+import { ReactComponent as Logo } from "./github.svg";
 export default class Signin extends Component {
   constructor() {
     super();
@@ -21,9 +25,9 @@ export default class Signin extends Component {
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.handelSubmit}>
-          <FormInput
+      <div className='Form'>
+        <form className='Form-Sign-in' onSubmit={this.handelSubmit}>
+          {/* <FormInput
             placeholder='Login'
             type='email'
             onChange={this.handlechange}
@@ -39,10 +43,26 @@ export default class Signin extends Component {
             name='password'
             value={this.state.password}
             required
-          />
+          /> 
+          */}
 
-          <button type='submit'> submit</button>
-          <button onClick={signInWithGoogle}> google</button>
+          <Button
+            children='Sign in with google '
+            Logo={<Logoo />}
+            signin
+            onClick={signInWithGoogle}
+          />
+          <Button
+            children='Sign in With GitHub'
+            Logo={<Logo />}
+            signin
+            onClick={signInWithGoogle}
+          />
+          <Button
+            children='Sign Up with phone or email'
+            signin
+            onClick={signInWithGoogle}
+          />
         </form>
       </div>
     );

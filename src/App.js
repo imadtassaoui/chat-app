@@ -1,7 +1,9 @@
-import Signin from "./components/Sign-in/Sign-in.component";
-import "./App.css";
+import SignInUpPage from "./pages/Sign-In-Up-page/sign-In-Up.component";
+import "./App.scss";
 import { auth } from "./firebase/firebase.util";
 import React, { Component } from "react";
+import Homepage from "./pages/homepage/homepage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
@@ -13,8 +15,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Homepage />
-        <Signin />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Homepage />}></Route>
+            <Route path='/SignIn-Up' element={<SignInUpPage />}></Route>
+          </Routes>
+        </BrowserRouter>
       </div>
     );
   }
