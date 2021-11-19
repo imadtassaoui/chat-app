@@ -5,6 +5,7 @@ import Button from "../button/button";
 import "./Sign-in.styles.scss";
 import { ReactComponent as Logoo } from "./google.svg";
 import { ReactComponent as Logo } from "./github.svg";
+import LoginPopup from "../Login-Popup/Login-Popup.component";
 export default class Signin extends Component {
   constructor() {
     super();
@@ -27,25 +28,6 @@ export default class Signin extends Component {
     return (
       <div className='Form'>
         <form className='Form-Sign-in' onSubmit={this.handelSubmit}>
-          {/* <FormInput
-            placeholder='Login'
-            type='email'
-            onChange={this.handlechange}
-            header='Create your account'
-            name='email'
-            value={this.state.email}
-            required
-          />
-          <FormInput
-            placeholder='Password'
-            type='password'
-            onChange={this.handlechange}
-            name='password'
-            value={this.state.password}
-            required
-          /> 
-          */}
-
           <Button
             children='Sign in with google '
             Logo={<Logoo />}
@@ -55,11 +37,6 @@ export default class Signin extends Component {
           <Button
             children='Sign in With GitHub'
             Logo={<Logo />}
-            signin
-            onClick={signInWithGoogle}
-          />
-          <Button
-            children='Sign Up with phone or email'
             signin
             onClick={signInWithGoogle}
           />

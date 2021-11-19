@@ -1,0 +1,25 @@
+.PopUpContainer {
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  right: 10%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 300px;
+  background-color: #ffff;
+  overflow: hidden;
+  border-radius: 30px;
+
+  
+
+  .PopU {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

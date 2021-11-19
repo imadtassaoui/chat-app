@@ -1,6 +1,6 @@
 import SignInUpPage from "./pages/Sign-In-Up-page/sign-In-Up.component";
 import "./App.scss";
-import { auth } from "./firebase/firebase.util";
+import { auth, firestore } from "./firebase/firebase.util";
 import React, { Component } from "react";
 import Homepage from "./pages/homepage/homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -10,6 +10,7 @@ class App extends Component {
     this.unSubscribeFromAuth = auth.onAuthStateChanged((user) =>
       this.setState({ currentUser: user })
     );
+    console.log(firestore.collection("users").doc("Yfg6wfho3e9MXIA6MeOB "));
   }
 
   render() {
@@ -18,7 +19,7 @@ class App extends Component {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Homepage />}></Route>
-            <Route path='/SignIn-Up' element={<SignInUpPage />}></Route>
+            <Route path='/Signin' element={<SignInUpPage />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
