@@ -3,6 +3,7 @@ import "./App.scss";
 import { auth, firestore } from "./firebase/firebase.util";
 import React, { Component } from "react";
 import Homepage from "./pages/homepage/homepage";
+import Chatpage from "./pages/chatpage/chatpage.component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 class App extends Component {
@@ -18,8 +19,9 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Homepage />}></Route>
-            <Route path='/Signin' element={<SignInUpPage />}></Route>
+            <Route path='/' element={<Homepage />} />
+            <Route path='/Signin' element={<SignInUpPage />} />
+            <Route path='/chat' element={<Chatpage />} />
           </Routes>
         </BrowserRouter>
       </div>

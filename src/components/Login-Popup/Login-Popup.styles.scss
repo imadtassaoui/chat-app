@@ -1,25 +1,59 @@
 .PopUpContainer {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
   position: fixed;
   top: 50%;
-  bottom: 50%;
-  right: 10%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 300px;
+  width: 35%;
+  height: 55%;
+  border-radius: 5px;
+  padding: 20px 0px;
   background-color: #ffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 0.5s ease-in-out;
 
-  
-
-  .PopU {
+  .head {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    .header {
-      display: flex;
+    span {
+      font-size: 20px;
       justify-content: space-between;
+      padding-bottom: 5px;
+    }
+    .closelogo {
+      position: fixed;
+      top: 0%;
+      right: 5%;
+      padding-top: 15px;
+    }
+  }
+  .Buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    button {
+      color: white;
+      margin: 10px;
+      width: 80%;
+      height: 35px;
+      font-size: 16px;
+      border: none;
+      background-color: #0d6efd;
+      border-radius: 3px;
+      &:hover {
+        background-color: #0b5ed7;
+      }
+    }
+    a {
+      color: #043a6d;
+      text-decoration: underline;
     }
   }
 }

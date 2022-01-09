@@ -3,15 +3,14 @@ import React, { Component } from "react";
 import { signInWithGoogle } from "../../firebase/firebase.util";
 import Button from "../button/button";
 import "./Sign-in.styles.scss";
-import { ReactComponent as Logoo } from "./google.svg";
-import { ReactComponent as Logo } from "./github.svg";
-import LoginPopup from "../Login-Popup/Login-Popup.component";
+import { ReactComponent as Logo } from "./google.svg";
 export default class Signin extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
       password: "",
+      hidden: "",
     };
   }
   handelSubmit = (e) => {
@@ -30,15 +29,14 @@ export default class Signin extends Component {
         <form className='Form-Sign-in' onSubmit={this.handelSubmit}>
           <Button
             children='Sign in with google '
-            Logo={<Logoo />}
+            Logo={<Logo />}
             signin
             onClick={signInWithGoogle}
           />
           <Button
-            children='Sign in With GitHub'
-            Logo={<Logo />}
+            children='Sign in With Email and Password'
             signin
-            onClick={signInWithGoogle}
+            onClick={this.props.handlepopup}
           />
         </form>
       </div>

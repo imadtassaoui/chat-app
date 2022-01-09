@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Login-Popup.styles.scss";
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button";
 import { ReactComponent as Close } from "./Close.svg";
 export default class LoginPopup extends Component {
   constructor(props) {
@@ -25,30 +24,35 @@ export default class LoginPopup extends Component {
     return (
       <div className='PopUpContainer'>
         <div className='PopU'>
-          <div className='header'>
-            <h1>Create a new account</h1>
-            <Close id="element1" onClick={() => this.props.close(false)} />
-          </div>
-          <div>
-            <FormInput
-              placeholder='Login'
-              type='email'
-              onChange={this.handlechange}
-              name='email'
-              value={this.state.email}
-              required
-            />
-            <FormInput
-              placeholder='Password'
-              type='password'
-              onChange={this.handlechange}
-              name='password'
-              value={this.state.password}
-              required
+          <div className='head'>
+            <span>TJchatApp</span>
+            <Close
+              className='closelogo'
+              onClick={() => this.props.close(false)}
             />
           </div>
-          <div>
-            <Button children='Connect' />
+
+          <FormInput
+            placeholder='Login'
+            type='email'
+            onChange={this.handlechange}
+            name='email'
+            value={this.state.email}
+            required
+          />
+          <FormInput
+            placeholder='Password'
+            type='password'
+            onChange={this.handlechange}
+            name='password'
+            value={this.state.password}
+            required
+          />
+          <div className='Buttons'>
+            <button> Connect </button>
+            <p>Or</p>
+            <button> Register </button>
+            <a href='#'>Forgot password?</a>
           </div>
         </div>
       </div>

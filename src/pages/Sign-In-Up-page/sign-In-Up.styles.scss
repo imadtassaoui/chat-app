@@ -24,5 +24,7 @@ $light: #fff;
   .Img-area {
     grid-area: Img-area;
     background-image: url("./bg2.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 }
