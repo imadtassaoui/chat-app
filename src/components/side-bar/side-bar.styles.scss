@@ -1,0 +1,40 @@
+.Sidebar-container {
+  grid-area: sidebar;
+  color: black;
+  background-color: #ffff;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dbdbdb;
+  .userinfo {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  img {
+    max-width: 50%;
+    max-height: 50%;
+    border-radius: 50%;
+    margin: 20px;
+  }
+  .signout {
+    height: 10%;
+    cursor: pointer;
+  }
+  .menu {
+    height: 60%;
+    .menu-pic {
+      max-width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 30%;
+      cursor: pointer;
+    }
+  }
+}

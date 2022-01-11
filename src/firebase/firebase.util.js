@@ -14,6 +14,33 @@ const config = {
 
 firebase.initializeApp(config);
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+  if (!snapShot.exists) {
+    const { displayName, email, photoURL } = userAuth;
+    const createdAt = new Date();
+    try {
+      userRef.set({
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error creating user profile", error.message);
+    }
+  }
+  return userRef;
+};
+export const getUserprofilepic = async (userAuth) => {
+  if (!userAuth) return;
+  const { photoURL } = userAuth;
+  return photoURL;
+};
+
 export const firestore = firebase.firestore();
 export const auth = firebase.auth();
 

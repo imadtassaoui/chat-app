@@ -4,9 +4,11 @@ import image from "./profile.jpg";
 const MessegesPreview = ({ users }) => {
   return (
     <div className='usersmessages'>
-      <img src={image} alt='rr' />
+      <img src={users.avatar} alt='rr' />
       <div className='messagepreview'>
-        <span>{users.name}</span>
+        <span>
+          {users.first_name} {users.last_name}
+        </span>
         <span>{users.email}</span>
       </div>
     </div>

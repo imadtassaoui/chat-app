@@ -52,7 +52,7 @@ export default class LoginPopup extends Component {
             <button> Connect </button>
             <p>Or</p>
             <button> Register </button>
-            <a href='#'>Forgot password?</a>
+            <a href='/chat'>Forgot password?</a>
           </div>
         </div>
       </div>
