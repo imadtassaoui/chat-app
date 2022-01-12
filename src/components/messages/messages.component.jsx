@@ -1,9 +1,14 @@
 import React from "react";
 import "./messages.styles.scss";
-const Messages = ({ currentUser, mainuser }) => {
+const Messages = ({ currentUser, message }) => {
+  const { text } = message;
   return (
     <div
-      className={mainuser ? "messagescontainer mainuser" : "messagescontainer"}
+      className={
+        currentUser.id === message.sentBy
+          ? "messagescontainer mainuser"
+          : "messagescontainer"
+      }
     >
       {currentUser ? (
         <div>
@@ -11,7 +16,7 @@ const Messages = ({ currentUser, mainuser }) => {
         </div>
       ) : null}
       <div className='message'>
-        <div>message</div>
+        <div>{text}</div>
       </div>
     </div>
   );

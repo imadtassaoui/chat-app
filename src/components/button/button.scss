@@ -15,10 +15,20 @@ $dark: #000;
   width: 175px;
   height: 40px;
   border-radius: 90px;
+  .children {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo {
+      margin: 10px;
+    }
+  }
+
   &:hover {
     opacity: 0.9;
     transition: opacity 0.5s;
   }
+
   &.white {
     background: #fff;
     color: #000;

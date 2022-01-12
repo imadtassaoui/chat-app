@@ -9,8 +9,10 @@ function Button({ children, white, stroke, signin, Logo, ...otherProps }) {
       } button`}
       {...otherProps}
     >
-      {Logo}
-      {children}
+      <div className='children'>
+        <div className='logo'> {Logo}</div>
+        {children}
+      </div>
     </button>
   );
 }

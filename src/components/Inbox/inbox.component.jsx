@@ -5,9 +5,9 @@ const Inbox = ({ users }) => {
   return (
     <div className='Inbox'>
       <input type='text' placeholder='search messages' />
-      {users.map((user) => (
-        <MessegesPreview key={user.id} users={user} />
-      ))}
+      {users.map((user) => {
+        user && <MessegesPreview key={user.id} users={user} />;
+      })}
     </div>
   );
 };
