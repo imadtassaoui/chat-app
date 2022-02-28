@@ -1,25 +1,24 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.chatpage-container {
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 4fr;
-  grid-template-rows: 1fr 4fr 1fr;
-  grid-template-areas:
-    "sidebar inbox chat"
-    "sidebar inbox chat"
-    "sidebar inbox chat ";
-}
-
 .mainchat {
   grid-area: chat;
   display: flex;
   flex-direction: column;
   height: 100vh;
 
+  .chatbox-container {
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .chatbox {
+      height: 90%;
+      width: 100%;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+    }
+  }
   .input {
     display: flex;
     flex-direction: row;

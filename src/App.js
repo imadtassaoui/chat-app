@@ -5,8 +5,15 @@ import React, { Component } from "react";
 import Homepage from "./pages/homepage/homepage";
 import Chatpage from "./pages/chatpage/chatpage.component";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { setCurrentUser } from "./redux/user/user.actions";
-import { selectCurrentUser } from "./redux/user/user.selectors";
+import {
+  setCurrentUser,
+  fetchUserFriendsAsync,
+  setCurrentUserFriends,
+} from "./redux/user/user.actions";
+import {
+  selectCurrentUser,
+  selectCurrentUserFriends,
+} from "./redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -14,7 +21,7 @@ class App extends Component {
   //multiFactor.user.displayName
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, fetchUserFriendsAsync, currentUser } = this.props;
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
@@ -32,10 +39,11 @@ class App extends Component {
   }
   componentWillUnmount() {
     this.unSubscribeFromAuth();
+    setCurrentUserFriends(null);
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, userFriends } = this.props;
     return (
       <div>
         <BrowserRouter>
@@ -60,10 +68,15 @@ class App extends Component {
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  userFriends: selectCurrentUserFriends,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  fetchUserFriendsAsync: (currentUser) =>
+    dispatch(fetchUserFriendsAsync(currentUser)),
+  setCurrentUserFriends: (currentUser) =>
+    dispatch(setCurrentUserFriends(currentUser)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

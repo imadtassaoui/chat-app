@@ -1,16 +1,24 @@
 .user-info {
-    width: 100%;
-    height: 10%;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-image: linear-gradient(
+    to top,
+    #c4c5c7 0%,
+    #dcdddf 52%,
+    #ebebeb 100%
+  );
+  border-bottom-left-radius: 50px;
+
+  .userinfo {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    .userinfo {
-      display: flex;
-      align-items: center;
-      img {
-        border-radius: 50%;
-        width: 2.5rem;
-        margin-right: 1rem;
-      }
+    img {
+      border-radius: 50%;
+      width: 2.5rem;
+      margin-right: 1rem;
     }
   }
+}

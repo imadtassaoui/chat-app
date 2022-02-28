@@ -6,7 +6,7 @@
   justify-content: flex-start;
   width: 100%;
   border: 1px solid #dbdbdb;
-  border-radius: 3px;
+
   cursor: pointer;
   img {
     max-width: 15%;
@@ -17,5 +17,8 @@
   .messagepreview {
     display: flex;
     flex-direction: column;
+  }
+  &:focus {
+    background-color: #f44141;
   }
 }

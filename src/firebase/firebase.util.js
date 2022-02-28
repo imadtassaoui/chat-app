@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import { fetchUserFriendsAsync } from "../redux/user/user.actions";
 
 const config = {
   apiKey: "AIzaSyB0xT1FhNJLM7TUuIW8-OgXWOOGZ_B6u_M",
@@ -21,12 +22,15 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!snapShot.exists) {
     const { displayName, email, photoURL } = userAuth;
     const createdAt = new Date();
+    const friendId = [];
     try {
       userRef.set({
+        id: userAuth.uid,
         displayName,
         email,
         photoURL,
         createdAt,
+        friendId,
         ...additionalData,
       });
     } catch (error) {
@@ -35,17 +39,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
   return userRef;
 };
-export const createMessage = async (userAuth, textValue) => {
+export const createMessage = async (userAuth, textValue, reciverId) => {
   if (!userAuth) return;
   const messageRef = firestore.collection("messages");
   const createdAt = new Date();
   const sentBy = userAuth.id;
   const text = textValue;
+  const sentTo = reciverId;
   try {
     messageRef.add({
       createdAt,
       sentBy,
       text,
+      sentTo,
     });
   } catch (error) {
     console.log("Failure to Send the message", error.message);
@@ -64,6 +70,17 @@ export const addFriends = async (userAuth, friendId) => {
     }
   }
 };
+export const addFriendByEmail = async (userAuth, friendEmailToAdd) => {
+  const userRef = firestore.collection("users");
+  const emailarray = [];
+  await userRef.get().then((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      const { email } = doc.data();
+      if (email === friendEmailToAdd) emailarray.push(doc.id);
+    });
+  });
+  emailarray.map((e) => addFriends(userAuth, e));
+};
 
 export const convertMessageSnapsshotToMap = (messages) => {
   const transformedMessage = messages.docs.map((doc) => {
@@ -79,15 +96,18 @@ export const convertMessageSnapsshotToMap = (messages) => {
   return transformedMessage;
 };
 
-export const getAllFriends = async (friendId) => {
-  const userRef = firestore.doc(`users/${friendId}`);
-  const snapShot = await userRef.get();
-  if (snapShot.exists) {
-    const { displayName, email, photoURL } = snapShot.data();
+// export const getAllFriends = async (currentUser) => {
+//   const friend = await currentUser.friendId.map((Id) => {
+//     const userRef = firestore.doc(`users/${Id}`);
+//     const nwfirnd = userRef.get().then((doc) => {
+//       const { displayName, email, photoURL, createdAt, id } = doc.data();
+//       return { displayName, email, photoURL, createdAt, id };
+//     });
+//     return nwfirnd;
+//   });
 
-    return { displayName, email, photoURL };
-  }
-};
+//   return friend;
+// };
 export const firestore = firebase.firestore();
 export const auth = firebase.auth();
 
