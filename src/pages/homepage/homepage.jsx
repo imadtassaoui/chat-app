@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { motion } from "framer-motion/dist/framer-motion";
 
 const Homepage = ({ currentUser }) => {
   return (
-    <div className='homepage'>
+    <motion.div exit={{ opacity: 0 }} className='homepage'>
       <div className='container'>
         <div className='emoji'>👋</div>
         <h1>
@@ -28,7 +29,7 @@ const Homepage = ({ currentUser }) => {
           <Button stroke>about us</Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 const mapStateToProps = createStructuredSelector({

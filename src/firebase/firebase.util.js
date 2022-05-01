@@ -1,7 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
-import { fetchUserFriendsAsync } from "../redux/user/user.actions";
 
 const config = {
   apiKey: "AIzaSyB0xT1FhNJLM7TUuIW8-OgXWOOGZ_B6u_M",
@@ -45,7 +44,7 @@ export const createMessage = async (userAuth, textValue, reciverId) => {
   const createdAt = new Date();
   const sentBy = userAuth.id;
   const text = textValue;
-  const sentTo = reciverId;
+  const sentTo = reciverId.id;
   try {
     messageRef.add({
       createdAt,
@@ -53,6 +52,7 @@ export const createMessage = async (userAuth, textValue, reciverId) => {
       text,
       sentTo,
     });
+    console.log("created");
   } catch (error) {
     console.log("Failure to Send the message", error.message);
   }
@@ -60,11 +60,26 @@ export const createMessage = async (userAuth, textValue, reciverId) => {
 };
 
 export const addFriends = async (userAuth, friendId) => {
+  const alreadyFriend = userAuth.friendId.includes(friendId);
+  if (alreadyFriend) {
+    alert("Already in your Friends list ");
+    return;
+  }
+  const friendRef = firestore.doc(`users/${friendId}`);
   const userRef = firestore.doc(`users/${userAuth.id}`);
   const snapShot = await userRef.get();
-  if (snapShot.exists) {
+  const friendToAdd = await friendRef.get().then((snapshot) => {
+    return snapshot.data();
+  });
+
+  if (snapShot.exists && friendToAdd) {
     try {
-      userRef.update({ friendId: [...userAuth.friendId, friendId] });
+      userRef.update({
+        friendId: [...userAuth.friendId, friendId],
+      });
+      friendRef.update({
+        friendId: [...friendToAdd.friendId, userAuth.id],
+      });
     } catch (error) {
       console.log("Failure to add the Friend", error.message);
     }
@@ -72,14 +87,20 @@ export const addFriends = async (userAuth, friendId) => {
 };
 export const addFriendByEmail = async (userAuth, friendEmailToAdd) => {
   const userRef = firestore.collection("users");
-  const emailarray = [];
-  await userRef.get().then((snapshot) => {
+  const emailarray = await userRef.get().then((snapshot) => {
+    var result = "";
     snapshot.docs.forEach((doc) => {
       const { email } = doc.data();
-      if (email === friendEmailToAdd) emailarray.push(doc.id);
+      if (email === friendEmailToAdd) result = doc.id;
     });
+    return result;
   });
-  emailarray.map((e) => addFriends(userAuth, e));
+  if (emailarray.length > 0) {
+    addFriends(userAuth, emailarray);
+  } else {
+    alert("Please enter a valid email address");
+  }
+  return emailarray;
 };
 
 export const convertMessageSnapsshotToMap = (messages) => {

@@ -2,7 +2,6 @@ import { userActiontypes } from "./user.types";
 import {
   firestore,
   convertMessageSnapsshotToMap,
-  getAllFriends,
 } from "../../firebase/firebase.util";
 import { OnlyCurrentUserMessages } from "./user.utils";
 export const setCurrentUser = (currentUser) => ({
@@ -35,12 +34,12 @@ export const fetchUserMessagesAsync = (currentUser, reciverId) => {
         reciverId
       );
       dispatch(setCurrentUserMessages(currentUserMessages));
-      console.log("done");
     });
   };
 };
 
 export const fetchUserFriendsAsync = (currentUser) => {
+  if (!currentUser) return;
   return async (dispatch) => {
     const friends = await fetchdata(currentUser);
     dispatch(setCurrentUserFriends(friends));

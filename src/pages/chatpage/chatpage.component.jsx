@@ -24,7 +24,7 @@ class Chatpage extends React.Component {
   }
 
   render() {
-    const { currentUser, userFriends, reciverId } = this.props;
+    const {  reciverId } = this.props;
     return (
       <div className='chatpage-container'>
         <Sidebar />

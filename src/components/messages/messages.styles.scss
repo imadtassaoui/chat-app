@@ -4,8 +4,15 @@
   height: 12%;
   align-items: center;
   justify-content: space-evenly;
+  flex-flow: column wrap;
+
   &.mainuser {
     flex-direction: row-reverse;
+
+    .message {
+      background-color: #318ce7;
+      color: #fff;
+    }
   }
 
   padding: 10px;
@@ -20,6 +27,8 @@
     height: 90%;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
-    color: black;
+    color: #fff;
+    background-color: #696969;
+    overflow: hidden;
   }
 }

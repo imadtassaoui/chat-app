@@ -1,7 +1,14 @@
 import React from "react";
 import "./button.scss";
 
-function Button({ children, white, stroke, signin, Logo, ...otherProps }) {
+function CustomButton({
+  children,
+  white,
+  stroke,
+  signin,
+  Logo,
+  ...otherProps
+}) {
   return (
     <button
       className={`${
@@ -17,4 +24,4 @@ function Button({ children, white, stroke, signin, Logo, ...otherProps }) {
   );
 }
 
-export default Button;
+export default CustomButton;

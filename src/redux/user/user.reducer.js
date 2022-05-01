@@ -28,6 +28,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         reciverId: action.payload,
       };
+    case userActiontypes.SET_REQUESTS_STATE:
+      return {
+        ...state,
+        requests: action.payload,
+      };
 
     default:
       return state;

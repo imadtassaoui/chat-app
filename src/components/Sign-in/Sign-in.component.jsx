@@ -1,45 +1,77 @@
 // import FormInput from "../form-input/form-input.component";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { signInWithGoogle } from "../../firebase/firebase.util";
-import Button from "../button/button";
+import CustomButton from "../button/button";
 import "./Sign-in.styles.scss";
 import { ReactComponent as Logo } from "./google.svg";
-export default class Signin extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      hidden: "",
-    };
-  }
-  handelSubmit = (e) => {
+import {
+  Modal,
+  TextInput,
+  PasswordInput,
+  Checkbox,
+  Button,
+  Group,
+} from "@mantine/core";
+import { At, Lock } from "tabler-icons-react";
+import { PasswordStrength } from "../password-input/password-component";
+const SignIn = () => {
+  const [state, setState] = useState("");
+  const [opened, setOpened] = useState(false);
+  const handelSubmit = (e) => {
     e.preventDefault();
-    this.setState({ email: "", password: "" });
+    setState({ email: "", password: "" });
   };
-  handlechange = (e) => {
+  const handlechange = (e) => {
     const { value, name } = e.target;
-    this.setState({ [name]: value }, () => {
-      console.log(this.state);
-    });
+    console.log(state);
+    setState({ ...state, [name]: value });
   };
-  render() {
-    return (
-      <div className='Form'>
-        <form className='Form-Sign-in' onSubmit={this.handelSubmit}>
-          <Button
-            children='Sign in with google '
-            Logo={<Logo />}
-            signin
-            onClick={signInWithGoogle}
+
+  return (
+    <div className='Form'>
+      <form className='Form-Sign-in' onSubmit={handelSubmit}>
+        <CustomButton
+          children='Sign in with google '
+          Logo={<Logo />}
+          signin
+          onClick={signInWithGoogle}
+        />
+        <Modal
+          opened={opened}
+          onClose={() => setOpened(false)}
+          title='Create an Account'
+        >
+          <TextInput placeholder='Your name' label='Full name' required />
+          <TextInput
+            label='Your email'
+            placeholder='Your email'
+            onChange={handlechange}
+            icon={<At size={14} />}
+            required
           />
-          <Button
-            children='Sign in With Email and Password'
-            signin
-            onClick={this.props.handlepopup}
+          <PasswordStrength />
+          <PasswordInput
+            label='Confirm password'
+            onChange={handlechange}
+            placeholder='Your password'
+            icon={<Lock size={16} />}
           />
-        </form>
-      </div>
-    );
-  }
-}
+          <Checkbox sx={{ marginTop: 10 }} label='I agree to sell my privacy' />
+          <Group spacing={100}>
+            <a href='#@'>already have an Account ?</a>
+
+            <Button sx={{ marginTop: 10 }}>Register</Button>
+          </Group>
+        </Modal>
+
+        <CustomButton
+          children='Sign in With Email and Password'
+          signin
+          onClick={() => setOpened(true)}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default SignIn;

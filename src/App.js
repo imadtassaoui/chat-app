@@ -16,12 +16,13 @@ import {
 } from "./redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
 class App extends Component {
   //multiFactor.user.displayName
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { setCurrentUser, fetchUserFriendsAsync, currentUser } = this.props;
+    const { setCurrentUser } = this.props;
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
@@ -43,25 +44,33 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, userFriends } = this.props;
+    const { currentUser } = this.props;
     return (
       <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Homepage />} />
-            <Route
-              path='/chat'
-              element={currentUser ? <Chatpage /> : <Navigate replace to='/' />}
-            />
-            <Route
-              exact
-              path='/signin'
-              element={
-                currentUser ? <Navigate replace to='/chat' /> : <SignInUpPage />
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+        <AnimatePresence exitBeforeEnter>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Homepage />} />
+              <Route
+                path='/chat'
+                element={
+                  currentUser ? <Chatpage /> : <Navigate replace to='/' />
+                }
+              />
+              <Route
+                exact
+                path='/signin'
+                element={
+                  currentUser ? (
+                    <Navigate replace to='/chat' />
+                  ) : (
+                    <SignInUpPage />
+                  )
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </AnimatePresence>
       </div>
     );
   }

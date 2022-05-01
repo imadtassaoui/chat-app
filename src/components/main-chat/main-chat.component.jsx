@@ -31,6 +31,7 @@ class MainChat extends React.Component {
       this.state.input,
       this.props.reciverId
     );
+    console.log(this.state);
     this.setState({ input: "" });
   };
   render() {
@@ -43,7 +44,7 @@ class MainChat extends React.Component {
             {userMessages &&
               userMessages.map((mes) => (
                 <Messages
-                  reciverId={reciverId.id}
+                  reciverId={reciverId}
                   currentUser={currentUser}
                   message={mes}
                   key={mes.id}

@@ -1,13 +1,9 @@
 import React from "react";
 import { auth } from "../../firebase/firebase.util";
-import { ReactComponent as FriendsIcon } from "../../assets/img/friends.svg";
-import { ReactComponent as MessageBoxIcon } from "../../assets/img/message-box.svg";
-import { ReactComponent as UserIcon } from "../../assets/img/user.svg";
-import { ReactComponent as FilesIcon } from "../../assets/img/Files.svg";
+import SimpleBadge from "../badge/badge.component";
 import AccountMenu from "../account-menu/account-menu.component";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import {
   selectCurrentUser,
   selectCurrentUserMessages,
@@ -37,10 +33,7 @@ const Sidebar = ({
         </div>
       ) : null}
       <div className='menu'>
-        <UserIcon className='menu-pic' />
-        <FriendsIcon className='menu-pic' />
-        <MessageBoxIcon className='menu-pic' />
-        <FilesIcon className='menu-pic' />
+        <SimpleBadge />
       </div>
 
       {currentUser ? (
