@@ -1,27 +1,26 @@
 import * as React from "react";
 import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Modal } from "@mantine/core";
 import { useState } from "react";
-
+import AddFriend from "../addFriend/addfriend.component";
 export default function SimpleBadge() {
   const [opened, setOpened] = useState(false);
   return (
     <div>
       <Badge
         onClick={() => setOpened(true)}
-        badgeContent={4}
         color='primary'
         sx={{ cursor: "pointer" }}
       >
-        <MailIcon color='action' />
+        <PersonAddIcon color='action' />
       </Badge>
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        title='Introduce yourself!'
+        title='Enter Email to Add Person!'
       >
-        text
+        <AddFriend />
       </Modal>
     </div>
   );

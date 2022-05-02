@@ -13,7 +13,6 @@ import {
   setReciverID,
 } from "../../redux/user/user.actions";
 import MainChat from "../../components/main-chat/main-chat.component";
-import Sidebar from "../../components/side-bar/side-bar.component";
 
 import Inbox from "../../components/Inbox/inbox.component";
 
@@ -24,11 +23,9 @@ class Chatpage extends React.Component {
   }
 
   render() {
-    const {  reciverId } = this.props;
+    const { reciverId } = this.props;
     return (
       <div className='chatpage-container'>
-        <Sidebar />
-
         <Inbox />
         {reciverId ? <MainChat /> : null}
       </div>

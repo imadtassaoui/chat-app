@@ -10,8 +10,15 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-
-export default function AccountMenu({ currentUser }) {
+import { auth } from "../../firebase/firebase.util";
+import {
+  setReciverID,
+  setCurrentUserMessages,
+  setCurrentUserFriends,
+} from "../../redux/user/user.actions";
+import { useDispatch } from "react-redux";
+function AccountMenu({ currentUser }) {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -35,7 +42,7 @@ export default function AccountMenu({ currentUser }) {
             <Avatar
               referrerPolicy='no-referrer'
               src={currentUser.photoURL}
-              sx={{ width: 60, height: 60 }}
+              sx={{ width: 30, height: 30 }}
               alt='usrphoto'
             />
           </IconButton>
@@ -77,25 +84,25 @@ export default function AccountMenu({ currentUser }) {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <Avatar
+            referrerPolicy='no-referrer'
+            src={currentUser.photoURL}
+            sx={{ width: 30, height: 30 }}
+            alt='usrphoto'
+          />{" "}
+          Profile
         </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
+
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize='small' />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize='small' />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            dispatch(setReciverID(null));
+            dispatch(setCurrentUserMessages(null));
+            dispatch(setCurrentUserFriends(null));
+            auth.signOut();
+          }}
+        >
           <ListItemIcon>
             <Logout fontSize='small' />
           </ListItemIcon>
@@ -105,3 +112,4 @@ export default function AccountMenu({ currentUser }) {
     </React.Fragment>
   );
 }
+export default AccountMenu;

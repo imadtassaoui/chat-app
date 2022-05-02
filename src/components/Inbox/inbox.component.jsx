@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 import MessegesPreview from "../../components/messages-preview/messeges-preview.component";
 import { Loader } from "@mantine/core";
+import SimpleBadge from "../badge/badge.component";
 import {
   selectCurrentUser,
   selectCurrentUserFriends,
   selectFetchingState,
   selectReciverId,
 } from "../../redux/user/user.selectors";
-import { addFriendByEmail } from "../../firebase/firebase.util";
+
 import {
   fetchUserFriendsAsync,
   setCurrentUserFriends,
 } from "../../redux/user/user.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { useState } from "react";
+import AccountMenu from "../account-menu/account-menu.component";
 import "./inbox.styles.scss";
-import Button from "@mui/material/Button";
 
 const Inbox = ({
   userFriends,
@@ -24,31 +24,21 @@ const Inbox = ({
   fetchingState,
   fetchUserFriendsAsync,
 }) => {
-  const [firendToAdd, setFriendToAdd] = useState("");
   useEffect(() => {
     fetchUserFriendsAsync(currentUser);
   }, [fetchUserFriendsAsync, currentUser]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(currentUser);
-    await addFriendByEmail(currentUser, firendToAdd);
-    setFriendToAdd("");
-  };
+
   return (
     <div className='Inbox'>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='email'
-          value={firendToAdd}
-          placeholder='enter email adress'
-          onChange={(e) => {
-            setFriendToAdd(e.target.value);
-          }}
-        />
-        <Button variant='contained' size='small' color='inherit' type='submit'>
-          Add Friend
-        </Button>
-      </form>
+      <div className='userinfo'>
+        <div className='usertest'>
+          <AccountMenu currentUser={currentUser} />
+          <span>{currentUser.displayName}</span>
+        </div>
+        <div>
+          <SimpleBadge />
+        </div>
+      </div>
       {fetchingState ? (
         userFriends.map((userFriend) => (
           <MessegesPreview key={userFriend.id} users={userFriend} />
