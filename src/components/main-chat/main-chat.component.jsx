@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import UserInfo from "../../components/user-info/user-info.component";
 import Messages from "../../components/messages/messages.component";
@@ -19,12 +19,14 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
     const { value } = e.target;
     setState({ input: value });
   };
-
+  const Ref = useRef();
   const sendMessage = (e) => {
     e.preventDefault();
     createMessage(currentUser, state.input, reciverId);
-    console.log(reciverId);
     setState({ input: "" });
+    setTimeout(() => {
+      Ref.current.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   };
 
   return (
@@ -45,6 +47,7 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
                 key={mes.id}
               />
             ))}
+          <div ref={Ref}></div>
         </div>
       </div>
 
