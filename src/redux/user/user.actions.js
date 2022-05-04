@@ -20,7 +20,12 @@ export const setReciverID = (reciverId) => ({
   type: userActiontypes.SET_CURRENT_RECIVER_ID,
   payload: reciverId,
 });
-
+export const setChatHidden = () => ({
+  type: userActiontypes.SET_CHAT_HIDDEN,
+});
+export const setInboxHidden = () => ({
+  type: userActiontypes.SET_INBOX_HIDDEN,
+});
 export const fetchUserMessagesAsync = (currentUser, reciverId) => {
   return (dispatch) => {
     const messageRef = firestore.collection("messages").orderBy("createdAt");

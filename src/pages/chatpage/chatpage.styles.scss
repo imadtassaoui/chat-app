@@ -5,20 +5,16 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 .chatpage-container {
-  display: grid;
-  grid-template-columns: 2fr 4fr;
-  grid-template-rows: 1fr 4fr 1fr;
-  grid-template-areas:
-    " inbox chat"
-    " inbox chat"
-    " inbox chat ";
+  display: flex;
+  height: 100vh;
+  width: 100vw;
 }
 
 .mainchat {
-  grid-area: chat;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  width: 70%;
 
   .input {
     display: flex;
@@ -41,6 +37,17 @@
       &:hover {
         background-color: #0b5ed7;
       }
+    }
+  }
+}
+@media only screen and (max-width: 950px) {
+  .chatpage-container {
+    .mainchat {
+      width: 100%;
+    }
+    &.hidden {
+      display: none;
+      width: 100%;
     }
   }
 }

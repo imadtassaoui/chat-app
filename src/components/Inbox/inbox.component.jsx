@@ -7,11 +7,13 @@ import {
   selectCurrentUserFriends,
   selectFetchingState,
   selectReciverId,
+  selectInboxHiddenState,
 } from "../../redux/user/user.selectors";
 
 import {
   fetchUserFriendsAsync,
   setCurrentUserFriends,
+  setInboxHidden,
 } from "../../redux/user/user.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -21,6 +23,7 @@ import "./inbox.styles.scss";
 const Inbox = ({
   userFriends,
   currentUser,
+  inboxHidden,
   fetchingState,
   fetchUserFriendsAsync,
 }) => {
@@ -29,7 +32,11 @@ const Inbox = ({
   }, [fetchUserFriendsAsync, currentUser]);
 
   return (
-    <div className='Inbox'>
+    <div
+      className={`Inbox ${
+        inboxHidden && window.innerWidth < 500 ? "hidden" : null
+      }`}
+    >
       <div className='userinfo'>
         <div className='usertest'>
           <AccountMenu currentUser={currentUser} />
@@ -57,12 +64,14 @@ const mapStateToProps = createStructuredSelector({
   userFriends: selectCurrentUserFriends,
   fetchingState: selectFetchingState,
   reciverId: selectReciverId,
+  inboxHidden: selectInboxHiddenState,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchUserFriendsAsync: (currentUser) =>
     dispatch(fetchUserFriendsAsync(currentUser)),
   setCurrentUserFriends: (currentUser) =>
     dispatch(setCurrentUserFriends(currentUser)),
+  setInboxHidden: (chatHidden) => dispatch(setInboxHidden(chatHidden)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inbox);

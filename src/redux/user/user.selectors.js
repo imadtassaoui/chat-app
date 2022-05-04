@@ -22,3 +22,11 @@ export const selectFetchingState = createSelector(
   [userSelector],
   (user) => !!user.userFriends
 );
+export const selectChatHiddenState = createSelector(
+  [userSelector],
+  (user) => user.chatHidden
+);
+export const selectInboxHiddenState = createSelector(
+  [userSelector],
+  (user) => user.inboxHidden
+);
