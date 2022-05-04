@@ -34,7 +34,7 @@ const Inbox = ({
   return (
     <div
       className={`Inbox ${
-        inboxHidden && window.innerWidth < 500 ? "hidden" : null
+        inboxHidden && window.innerWidth < 500 ? "hidden" : ""
       }`}
     >
       <div className='userinfo'>

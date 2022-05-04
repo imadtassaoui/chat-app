@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   userFriends: null,
   userMessages: null,
   reciverId: null,
-  chatHidden: false,
+  chatHidden: true,
   inboxHidden: false,
 };
 

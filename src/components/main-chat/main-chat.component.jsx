@@ -30,7 +30,7 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
   return (
     <div
       className={`mainchat ${
-        chatHidden && window.innerWidth < 500 ? "hidden" : null
+        chatHidden && window.innerWidth < 500 ? "hidden" : ""
       }`}
     >
       <div className='chatbox-container'>

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {
   selectReciverId,
   selectCurrentUser,
+  selectChatHiddenState,
 } from "../../redux/user/user.selectors";
 import {
   setReciverID,
@@ -19,6 +20,7 @@ const MessegesPreview = ({
   fetchUserMessagesAsync,
   setInboxHidden,
   setChatHidden,
+  chatHidden,
 }) => {
   return (
     <div
@@ -29,7 +31,9 @@ const MessegesPreview = ({
         fetchUserMessagesAsync(currentUser, users.id);
         if (window.innerWidth < 500) {
           setInboxHidden();
-          setChatHidden();
+          if (chatHidden) {
+            setChatHidden();
+          }
         }
       }}
     >
@@ -45,6 +49,7 @@ const MessegesPreview = ({
 const mapStateToProps = createStructuredSelector({
   reciverId: selectReciverId,
   currentUser: selectCurrentUser,
+  chatHidden: selectChatHiddenState,
 });
 const mapDispatchToProps = (dispatch) => ({
   setReciverID: (id) => dispatch(setReciverID(id)),
