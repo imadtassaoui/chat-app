@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import "./chatpage.styles.scss";
 import { motion } from "framer-motion";
 import {
@@ -18,35 +18,38 @@ import MainChat from "../../components/main-chat/main-chat.component";
 
 import Inbox from "../../components/Inbox/inbox.component";
 
-const Chatpage = ({
-  reciverId,
-  currentUser,
-  fetchUserFriendsAsync,
-  fetchUserMessagesAsync,
-}) => {
-  useEffect(() => {
+class Chatpage extends Component {
+  componentDidMount() {
+    const {
+      reciverId,
+      currentUser,
+      fetchUserFriendsAsync,
+      fetchUserMessagesAsync,
+    } = this.props;
     fetchUserFriendsAsync(currentUser);
     fetchUserMessagesAsync(currentUser, reciverId);
-  }, [currentUser]);
-
-  return (
-    <motion.div
-      exit={{
-        opacity: 0.2,
-        transition: { duration: 0.3, ease: "easeInOut" },
-      }}
-      initial={{ opacity: 0.5 }}
-      animate={{
-        opacity: 1,
-        transition: { duration: 0.3, ease: "easeInOut" },
-      }}
-      className='chatpage-container'
-    >
-      <Inbox />
-      {reciverId ? <MainChat /> : null}
-    </motion.div>
-  );
-};
+  }
+  render() {
+    const { reciverId } = this.props;
+    return (
+      <motion.div
+        exit={{
+          opacity: 0.2,
+          transition: { duration: 0.3, ease: "easeInOut" },
+        }}
+        initial={{ opacity: 0.5 }}
+        animate={{
+          opacity: 1,
+          transition: { duration: 0.3, ease: "easeInOut" },
+        }}
+        className='chatpage-container'
+      >
+        <Inbox />
+        {reciverId ? <MainChat /> : null}
+      </motion.div>
+    );
+  }
+}
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   userMessages: selectCurrentUserMessages,
