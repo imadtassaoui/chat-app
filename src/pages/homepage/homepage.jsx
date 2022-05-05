@@ -9,7 +9,12 @@ import { motion } from "framer-motion/dist/framer-motion";
 
 const Homepage = ({ currentUser }) => {
   return (
-    <motion.div exit={{ opacity: 0 }} className='homepage'>
+    <motion.div
+      exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.3, ease: "easeInOut" } }}
+      className='homepage'
+    >
       <div className='container'>
         <div className='emoji'>👋</div>
         <h1>

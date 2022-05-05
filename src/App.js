@@ -1,10 +1,10 @@
 import SignInUpPage from "./pages/Sign-In-Up-page/sign-In-Up.component";
 import "./App.scss";
 import { auth, createUserProfileDocument } from "./firebase/firebase.util";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Homepage from "./pages/homepage/homepage";
 import Chatpage from "./pages/chatpage/chatpage.component";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import {
   setCurrentUser,
   fetchUserFriendsAsync,
@@ -18,12 +18,12 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { AnimatePresence } from "framer-motion/dist/framer-motion";
 
-class App extends Component {
+const App = ({ currentUser, setCurrentUser }) => {
+  const location = useLocation();
   //multiFactor.user.displayName
-  unSubscribeFromAuth = null;
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
+
+  useEffect(() => {
+    const unSubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
 
@@ -37,44 +37,33 @@ class App extends Component {
         setCurrentUser(user);
       }
     });
-  }
-  componentWillUnmount() {
-    this.unSubscribeFromAuth();
-    setCurrentUserFriends(null);
-  }
+    return () => {
+      unSubscribeFromAuth();
+      setCurrentUserFriends(null);
+    };
+  }, [setCurrentUser]);
 
-  render() {
-    const { currentUser } = this.props;
-    return (
-      <div>
-        <AnimatePresence exitBeforeEnter>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Homepage />} />
-              <Route
-                path='/chat'
-                element={
-                  currentUser ? <Chatpage /> : <Navigate replace to='/' />
-                }
-              />
-              <Route
-                exact
-                path='/signin'
-                element={
-                  currentUser ? (
-                    <Navigate replace to='/chat' />
-                  ) : (
-                    <SignInUpPage />
-                  )
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </AnimatePresence>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.pathname}>
+          <Route path='/' element={<Homepage />} />
+          <Route
+            path='/chat'
+            element={currentUser ? <Chatpage /> : <Navigate replace to='/' />}
+          />
+          <Route
+            exact
+            path='/signin'
+            element={
+              currentUser ? <Navigate replace to='/chat' /> : <SignInUpPage />
+            }
+          />
+        </Routes>
+      </AnimatePresence>
+    </div>
+  );
+};
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   userFriends: selectCurrentUserFriends,

@@ -9,7 +9,7 @@ const UserInfo = ({ currentUser }) => {
     <div className='user-info'>
       {currentUser ? (
         <div className='userinfo'>
-          {window.innerWidth < 950 ? (
+          {window.innerWidth < 550 ? (
             <ArrowBackIcon
               className='backicon'
               onClick={() => {

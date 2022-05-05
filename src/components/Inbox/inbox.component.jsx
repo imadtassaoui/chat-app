@@ -19,7 +19,6 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import AccountMenu from "../account-menu/account-menu.component";
 import "./inbox.styles.scss";
-
 const Inbox = ({
   userFriends,
   currentUser,
@@ -34,7 +33,7 @@ const Inbox = ({
   return (
     <div
       className={`Inbox ${
-        inboxHidden && window.innerWidth < 500 ? "hidden" : ""
+        inboxHidden && window.innerWidth < 560 ? "hidden" : ""
       }`}
     >
       <div className='userinfo'>

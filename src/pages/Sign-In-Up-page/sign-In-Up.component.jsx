@@ -1,10 +1,16 @@
 import React from "react";
 import Signin from "../../components/Sign-in/Sign-in.component";
+import { motion } from "framer-motion";
 import "./sign-In-Up.styles.scss";
 
 const SignInUpPage = () => {
   return (
-    <div className=''>
+    <motion.div
+      exit={{ opacity: 0.2, transition: { duration: 0.3, ease: "easeInOut" } }}
+      initial={{ opacity: 0.5 }}
+      animate={{ opacity: 1, transition: { duration: 0.3, ease: "easeInOut" } }}
+      className=''
+    >
       <div className='SignIn-Up'>
         <div className='Login'>
           <h1>Join Us</h1>
@@ -20,7 +26,7 @@ const SignInUpPage = () => {
         </div>
         <div className='Img-area'></div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

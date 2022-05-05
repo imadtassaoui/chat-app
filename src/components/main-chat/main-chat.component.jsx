@@ -32,14 +32,14 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
   return (
     <div
       className={`mainchat ${
-        chatHidden && window.innerWidth < 500 ? "hidden" : ""
+        chatHidden && window.innerWidth < 560 ? "hidden" : ""
       }`}
     >
       <div className='chatbox-container'>
         <UserInfo currentUser={reciverId} />
         <div className='chatbox'>
           {userMessages &&
-            userMessages.map((mes) => (
+            userMessages.currentUserMessages.map((mes) => (
               <Messages
                 reciverId={reciverId}
                 currentUser={currentUser}
@@ -53,6 +53,7 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
 
       <form className='input' onSubmit={sendMessage}>
         <input
+          size='md'
           placeholder='send a message'
           value={state.input}
           onChange={handlechange}

@@ -1,7 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
-
 const config = {
   apiKey: "AIzaSyB0xT1FhNJLM7TUuIW8-OgXWOOGZ_B6u_M",
   authDomain: "chat-app-d0772.firebaseapp.com",
@@ -105,12 +104,13 @@ export const addFriendByEmail = async (userAuth, friendEmailToAdd) => {
 
 export const convertMessageSnapsshotToMap = (messages) => {
   const transformedMessage = messages.docs.map((doc) => {
-    const { text, sentBy, sentTo } = doc.data();
+    const { text, sentBy, sentTo, createdAt } = doc.data();
     return {
       id: doc.id,
       text,
       sentBy,
       sentTo,
+      createdAt,
     };
   });
 

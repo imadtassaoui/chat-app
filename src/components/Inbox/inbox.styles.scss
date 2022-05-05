@@ -25,10 +25,13 @@
     margin: 2%;
   }
   &.hidden {
-    display: none;
+    visibility: hidden;
+    transition: 200ms;
+    width: 0%;
   }
 }
-@media only screen and (max-width: 500px) {
+
+@media only screen and (max-width: 560px) {
   .Inbox {
     width: 100%;
     height: 100vh;

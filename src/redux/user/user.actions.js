@@ -26,7 +26,7 @@ export const setChatHidden = () => ({
 export const setInboxHidden = () => ({
   type: userActiontypes.SET_INBOX_HIDDEN,
 });
-export const fetchUserMessagesAsync = (currentUser, reciverId) => {
+export const fetchUserMessagesAsync = (currentUser, reciverId, once) => {
   return (dispatch) => {
     const messageRef = firestore.collection("messages").orderBy("createdAt");
 
@@ -38,7 +38,19 @@ export const fetchUserMessagesAsync = (currentUser, reciverId) => {
         currentUser,
         reciverId
       );
-      dispatch(setCurrentUserMessages(currentUserMessages));
+      if (once) {
+        dispatch(
+          setCurrentUserMessages({
+            data: data,
+          })
+        );
+      }
+      dispatch(
+        setCurrentUserMessages({
+          data: data,
+          currentUserMessages: currentUserMessages,
+        })
+      );
     });
   };
 };
