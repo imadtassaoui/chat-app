@@ -38,7 +38,7 @@ const MainChat = ({ currentUser, userMessages, reciverId, chatHidden }) => {
       <div className='chatbox-container'>
         <UserInfo currentUser={reciverId} />
         <div className='chatbox'>
-          {userMessages &&
+          {userMessages.currentUserMessages &&
             userMessages.currentUserMessages.map((mes) => (
               <Messages
                 reciverId={reciverId}

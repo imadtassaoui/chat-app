@@ -20,14 +20,10 @@ import Inbox from "../../components/Inbox/inbox.component";
 
 class Chatpage extends Component {
   componentDidMount() {
-    const {
-      reciverId,
-      currentUser,
-      fetchUserFriendsAsync,
-      fetchUserMessagesAsync,
-    } = this.props;
+    const { currentUser, fetchUserFriendsAsync, fetchUserMessagesAsync } =
+      this.props;
     fetchUserFriendsAsync(currentUser);
-    fetchUserMessagesAsync(currentUser, reciverId);
+    fetchUserMessagesAsync(currentUser);
   }
   render() {
     const { reciverId } = this.props;
