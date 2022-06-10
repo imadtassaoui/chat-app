@@ -4,14 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: flex;
-  background-image: linear-gradient(
-    to top,
-    #c4c5c7 0%,
-    #dcdddf 52%,
-    #ebebeb 100%
-  );
-  border-bottom-left-radius: 50px;
-
+  border-bottom: 1px solid;
+  border-color: #f7f8f9;
   .userinfo {
     display: flex;
     align-items: center;

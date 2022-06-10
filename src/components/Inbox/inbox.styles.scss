@@ -6,7 +6,12 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
-
+  .search-friend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5%;
+  }
   .loading {
     width: 100%;
     height: 100%;
@@ -17,6 +22,10 @@
   .usertest {
     display: flex;
     align-items: center;
+    span {
+      color: #497afa;
+      font-weight: bold;
+    }
   }
   .userinfo {
     display: flex;

@@ -4,6 +4,7 @@ import {
   convertMessageSnapsshotToMap,
 } from "../../firebase/firebase.util";
 import { OnlyCurrentUserMessages } from "./user.utils";
+
 export const setCurrentUser = (currentUser) => ({
   type: userActiontypes.SET_CURRENT_USER,
   payload: currentUser,
@@ -26,28 +27,30 @@ export const setChatHidden = () => ({
 export const setInboxHidden = () => ({
   type: userActiontypes.SET_INBOX_HIDDEN,
 });
+export const setData = (data) => ({
+  type: userActiontypes.SET_DATA,
+  payload: data,
+});
 export const fetchUserMessagesAsync = (currentUser, reciverId) => {
   return (dispatch) => {
     const messageRef = firestore.collection("messages").orderBy("createdAt");
 
     messageRef.onSnapshot((snapshot) => {
       const data = convertMessageSnapsshotToMap(snapshot);
-      if (!reciverId) {
+      console.log(snapshot);
+      if (!reciverId)
         return dispatch(
-          setCurrentUserMessages({
+          setData({
             data: data,
           })
         );
-      }
-
       const currentUserMessages = OnlyCurrentUserMessages(
         data,
         currentUser,
         reciverId
       );
-      dispatch(
+      return dispatch(
         setCurrentUserMessages({
-          data: data,
           currentUserMessages: currentUserMessages,
         })
       );

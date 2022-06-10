@@ -117,18 +117,6 @@ export const convertMessageSnapsshotToMap = (messages) => {
   return transformedMessage;
 };
 
-// export const getAllFriends = async (currentUser) => {
-//   const friend = await currentUser.friendId.map((Id) => {
-//     const userRef = firestore.doc(`users/${Id}`);
-//     const nwfirnd = userRef.get().then((doc) => {
-//       const { displayName, email, photoURL, createdAt, id } = doc.data();
-//       return { displayName, email, photoURL, createdAt, id };
-//     });
-//     return nwfirnd;
-//   });
-
-//   return friend;
-// };
 export const firestore = firebase.firestore();
 export const auth = firebase.auth();
 

@@ -10,9 +10,12 @@ import { motion } from "framer-motion/dist/framer-motion";
 const Homepage = ({ currentUser }) => {
   return (
     <motion.div
-      exit={{ opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } }}
+      exit={{ opacity: 0, transition: { duration: 0.08, ease: "easeInOut" } }}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.3, ease: "easeInOut" } }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.08, ease: "easeInOut" },
+      }}
       className='homepage'
     >
       <div className='container'>

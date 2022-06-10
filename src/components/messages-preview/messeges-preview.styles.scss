@@ -1,28 +1,50 @@
 .usersmessages {
-  background-color: #ffff;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
   height: 13%;
-  border: 1px solid #dbdbdb;
 
   cursor: pointer;
   img {
     max-width: 15%;
-    border-radius: 20%;
+    border-radius: 50%;
     margin: 5%;
     min-width: 50px;
   }
   span {
-    font-size: 12px;
+    font-size: 14px;
     margin: 5%;
     opacity: 0.7;
   }
+
   .messagepreview {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    h5 {
+      font-size: 16px;
+      color: #497afa;
+    }
+    .username-date {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .username {
+        width: 80%;
+      }
+      .date {
+        width: 35%;
+      }
+    }
+    .message-container {
+      width: 100%;
+
+      .message {
+        max-width: 80%;
+      }
+    }
   }
   &:focus {
     opacity: 0.5;

@@ -3,11 +3,13 @@ import "./messeges-preview.styles.scss";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { latestRecivedMessages } from "../../redux/user/user.utils";
+import moment from "moment";
 import {
   selectReciverId,
   selectCurrentUser,
   selectChatHiddenState,
   selectCurrentUserMessages,
+  selectData,
 } from "../../redux/user/user.selectors";
 import {
   setReciverID,
@@ -17,26 +19,58 @@ import {
 } from "../../redux/user/user.actions";
 const MessegesPreview = ({
   users,
+  reciverId,
   setReciverID,
   currentUser,
   fetchUserMessagesAsync,
   setInboxHidden,
   setChatHidden,
   chatHidden,
-  userMessages,
+  data,
 }) => {
   const [lastMessage, setLastMessage] = useState(
-    latestRecivedMessages(userMessages, users.id, currentUser)
+    latestRecivedMessages(data, users.id, currentUser)
   );
+  const [clicked, setClicked] = useState("false");
+  const [lastMessageDate, setLastMessageDate] = useState(null);
   useEffect(() => {
-    setLastMessage(latestRecivedMessages(userMessages, users.id, currentUser));
-  }, [userMessages, users.id, currentUser]);
+    setLastMessage(latestRecivedMessages(data, users.id, currentUser));
+    if (lastMessage) {
+      if (
+        typeof lastMessage.createdAt === "object" &&
+        lastMessage.createdAt !== null &&
+        "toDate" in lastMessage.createdAt
+      ) {
+        if (
+          moment(lastMessage.createdAt.toDate())
+            .subtract(0, "days")
+            .calendar()
+            .includes("Today")
+        ) {
+          setLastMessageDate(
+            moment(lastMessage.createdAt.toDate()).format("LT")
+          );
+        } else if (
+          moment(lastMessage.createdAt.toDate())
+            .calendar()
+            .includes("Yesterday")
+        ) {
+          setLastMessageDate("Yesterday");
+        } else {
+          setLastMessageDate(
+            moment(lastMessage.createdAt.toDate()).format("L")
+          );
+        }
+      }
+    }
+  }, [data, currentUser, lastMessage]);
 
   return (
     <div
       className='usersmessages'
       tabIndex='1'
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         setReciverID(users);
         fetchUserMessagesAsync(currentUser, users.id);
         if (window.innerWidth < 500) {
@@ -49,8 +83,21 @@ const MessegesPreview = ({
     >
       <img referrerPolicy='no-referrer' src={users.photoURL} alt='rr' />
       <div className='messagepreview'>
-        <h5>{users.displayName}</h5>
-        {lastMessage ? <span>{lastMessage.text}</span> : null}
+        <div className='username-date'>
+          <div className='username'>
+            <h5>{users.displayName}</h5>
+          </div>
+          <div className='date'>
+            <span>{lastMessageDate ? lastMessageDate : null}</span>
+          </div>
+        </div>
+        {lastMessage ? (
+          <div className='message-container'>
+            <div className='message'>
+              <span>{lastMessage.text}</span>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -61,6 +108,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   chatHidden: selectChatHiddenState,
   userMessages: selectCurrentUserMessages,
+  data: selectData,
 });
 const mapDispatchToProps = (dispatch) => ({
   setReciverID: (id) => dispatch(setReciverID(id)),

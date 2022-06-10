@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   userFriends: null,
   userMessages: null,
   reciverId: null,
+  data: null,
   chatHidden: true,
   inboxHidden: false,
 };
@@ -39,6 +40,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         inboxHidden: !state.inboxHidden,
+      };
+    case userActiontypes.SET_DATA:
+      return {
+        ...state,
+        data: action.payload,
       };
     default:
       return state;

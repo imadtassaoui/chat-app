@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import MessegesPreview from "../../components/messages-preview/messeges-preview.component";
 import { Loader } from "@mantine/core";
 import SimpleBadge from "../badge/badge.component";
+import { Input } from "@mantine/core";
+import { At } from "tabler-icons-react";
 import {
   selectCurrentUser,
   selectCurrentUserFriends,
@@ -45,13 +47,22 @@ const Inbox = ({
           <SimpleBadge />
         </div>
       </div>
+      <div className='search-friend'>
+        <Input
+          style={{ width: "90%" }}
+          icon={<At />}
+          variant='filled'
+          placeholder='Searsh Friends'
+          radius='xl'
+        />
+      </div>
       {fetchingState ? (
         userFriends.map((userFriend) => (
           <MessegesPreview key={userFriend.id} users={userFriend} />
         ))
       ) : (
         <div className='loading'>
-          <Loader color='gray' />
+          <Loader />
         </div>
       )}
     </div>

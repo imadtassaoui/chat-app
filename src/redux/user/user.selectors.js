@@ -30,3 +30,4 @@ export const selectInboxHiddenState = createSelector(
   [userSelector],
   (user) => user.inboxHidden
 );
+export const selectData = createSelector([userSelector], (user) => user.data);

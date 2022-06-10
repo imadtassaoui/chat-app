@@ -6,9 +6,12 @@ import "./sign-In-Up.styles.scss";
 const SignInUpPage = () => {
   return (
     <motion.div
-      exit={{ opacity: 0.2, transition: { duration: 0.3, ease: "easeInOut" } }}
+      exit={{ opacity: 0.2, transition: { duration: 0.08, ease: "easeInOut" } }}
       initial={{ opacity: 0.5 }}
-      animate={{ opacity: 1, transition: { duration: 0.3, ease: "easeInOut" } }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.08, ease: "easeInOut" },
+      }}
       className=''
     >
       <div className='SignIn-Up'>
