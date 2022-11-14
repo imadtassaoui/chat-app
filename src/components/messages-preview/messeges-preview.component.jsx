@@ -33,6 +33,7 @@ const MessegesPreview = ({
   );
   const [clicked, setClicked] = useState("false");
   const [lastMessageDate, setLastMessageDate] = useState(null);
+  let unsubscribe;
   useEffect(() => {
     setLastMessage(latestRecivedMessages(data, users.id, currentUser));
     if (lastMessage) {
@@ -63,7 +64,7 @@ const MessegesPreview = ({
         }
       }
     }
-  }, [data, currentUser, lastMessage]);
+  }, [data, currentUser, lastMessage, reciverId]);
 
   return (
     <div
@@ -72,7 +73,6 @@ const MessegesPreview = ({
       onClick={(e) => {
         e.stopPropagation();
         setReciverID(users);
-        fetchUserMessagesAsync(currentUser, users.id);
         if (window.innerWidth < 500) {
           setInboxHidden();
           if (chatHidden) {

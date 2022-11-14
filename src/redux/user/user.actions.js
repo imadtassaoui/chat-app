@@ -32,10 +32,9 @@ export const setData = (data) => ({
   payload: data,
 });
 export const fetchUserMessagesAsync = (currentUser, reciverId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const messageRef = firestore.collection("messages").orderBy("createdAt");
-
-    messageRef.onSnapshot((snapshot) => {
+    const unsubscribe = messageRef.onSnapshot((snapshot) => {
       const data = convertMessageSnapsshotToMap(snapshot);
       console.log(snapshot);
       if (!reciverId)
@@ -55,6 +54,7 @@ export const fetchUserMessagesAsync = (currentUser, reciverId) => {
         })
       );
     });
+    return unsubscribe;
   };
 };
 
